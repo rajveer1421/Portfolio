@@ -1,0 +1,419 @@
+/* ── Hero layout ────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + clamp(16px, 3vh, 36px));
+  padding-bottom: clamp(24px, 4vh, 48px);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-hello {
+  font-family: var(--font-mono);
+  font-size: clamp(0.78rem, 1.6vw, 0.92rem);
+  color: var(--muted);
+}
+.hero-hello b {
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+.hero-name {
+  position: relative;
+  margin-top: 6px;
+  font-size: clamp(3rem, 10.5vw, 6.6rem);
+  font-weight: 650;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.hero-name .word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.hero-name .ch {
+  display: inline-block;
+  animation: ch-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i) * 45ms + 120ms);
+}
+.hero-name .last {
+  color: var(--accent);
+}
+.hero-name .underline {
+  position: absolute;
+  left: 50%;
+  bottom: -0.16em;
+  width: min(92%, 640px);
+  height: 0.28em;
+  transform: translateX(-50%);
+  overflow: visible;
+}
+.hero-name .underline path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.1s 0.9s ease forwards;
+}
+
+.hero-role {
+  margin-top: clamp(16px, 2.6vh, 24px);
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  color: var(--ink-2);
+  max-width: 44ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+.hero-role strong {
+  font-weight: 600;
+}
+
+.scene-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1040px;
+  margin-top: clamp(4px, 1.5vh, 16px);
+  flex: 1 1 auto;
+  display: grid;
+  place-items: center;
+}
+.scene {
+  width: 100%;
+  height: auto;
+  max-height: calc(100svh - var(--nav-h) - 330px);
+  min-height: 220px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding-inline: var(--gutter);
+  margin-top: clamp(8px, 2vh, 20px);
+}
+.know-more {
+  font-size: 1rem;
+  padding-inline: 22px;
+}
+.know-more .arrow {
+  animation: nudge 1.6s ease-in-out infinite;
+}
+
+@keyframes ch-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em) rotate(4deg);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes nudge {
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+  }
+  .scene {
+    max-height: none;
+  }
+  .hero-cta .btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* ── Scene: palette ─────────────────────────────────────────────────────── */
+.scene {
+  --skin: #c68b63;
+  --skin-dark: #a96f4b;
+  --hair: #1e1a18;
+  --hoodie: #34406b;
+  --hoodie-dark: #283357;
+  --wood: #c99368;
+  --wood-dark: #a5704a;
+  --metal: #2a2d33;
+  --code: #d6deeb;
+  --kw: #c792ea;
+  --fn: #82aaff;
+  --num: #f78c6c;
+  --ok: #4ade80;
+  --amber: #fbbf24;
+}
+
+.s-blob { fill: #ede1cc; }
+.s-floor { stroke: var(--line-strong); stroke-width: 2; }
+.s-cord { stroke: #2b2b2b; stroke-width: 2; }
+.s-shade { fill: var(--ink); }
+.s-bulb { fill: #ffd98a; }
+.s-cone { fill: #ffe2a3; opacity: 0.32; animation: glow 5s ease-in-out infinite; }
+
+.s-desk-top { fill: var(--wood); }
+.s-desk-edge { fill: var(--wood-dark); }
+.s-desk-leg { fill: var(--wood-dark); }
+.s-leaf { fill: #4f8a5b; }
+.s-leaf-2 { fill: #3f7149; }
+.s-pot { fill: var(--accent); }
+
+.s-stand { fill: var(--metal); }
+.s-bezel { fill: #1b1d22; }
+.s-screen { fill: var(--screen); }
+.s-led { fill: var(--ok); }
+.s-note { fill: #ffe27a; }
+.s-note-text { font: 600 11px var(--font-mono); fill: #4a3b00; }
+
+.s-bar { fill: #181b21; }
+.s-tab { font: 10px var(--font-mono); fill: #9aa3b2; }
+.s-kernel { fill: var(--ok); }
+.s-prompt { font: 9.5px var(--font-mono); fill: #5b6577; }
+.code-line { font: 10.5px var(--font-mono); fill: var(--code); white-space: pre; }
+.code-line .k { fill: var(--kw); }
+.code-line .f { fill: var(--fn); }
+.code-line .n { fill: var(--num); }
+.caret { fill: var(--ok); animation: blink 1s steps(1) infinite; }
+
+.s-out { fill: #14171d; stroke: #232833; }
+.s-out-text { font: 10.5px var(--font-mono); fill: var(--code); }
+.s-out-dim { fill: #8b95a7; }
+.s-track { fill: #262b34; }
+.progress { fill: var(--ok); }
+.s-axis { fill: none; stroke: #3a4150; stroke-width: 1.2; }
+.s-axis-label { font: 9.5px var(--font-mono); fill: #8b95a7; }
+.loss-curve { fill: none; stroke: #7fdbca; stroke-width: 2.4; stroke-linecap: round; }
+.s-divider { stroke: #2a2f3a; stroke-width: 2; }
+
+.s-status { font: 600 10px var(--font-mono); }
+.s-status-train { fill: var(--amber); }
+.s-status-ready { fill: var(--ok); }
+
+.net-edge { stroke: #3a4150; stroke-width: 1; }
+.net-node { fill: #1d2129; stroke: #4b5568; stroke-width: 1.2; }
+.net-lit { fill: #7fdbca; }
+
+.s-bubble { fill: #fffcf6; }
+.s-bubble-text { font: 600 11.5px var(--font-sans); fill: var(--ink); }
+
+.r-wire { fill: none; stroke: #7fdbca; stroke-width: 1.6; stroke-dasharray: 0.02 0.012; }
+.r-head { fill: #e7ebf2; }
+.r-body { fill: var(--accent); }
+.r-neck { fill: #b8c0cc; }
+.r-ear { fill: #b8c0cc; }
+.r-visor { fill: #0b0d11; }
+.r-antenna { stroke: #b8c0cc; stroke-width: 3; }
+.r-bulb { fill: var(--accent); }
+.r-eye { fill: var(--ok); }
+.r-smile { fill: none; stroke: var(--ok); stroke-width: 3; stroke-linecap: round; }
+.wave-bar { fill: #7fdbca; }
+
+.s-keyboard { fill: #ece6da; stroke: #cfc6b5; stroke-width: 1.5; }
+.s-keys { stroke: #cfc6b5; stroke-width: 1.5; stroke-dasharray: 8 4; }
+.s-mouse { fill: #ece6da; stroke: #cfc6b5; stroke-width: 1.5; }
+
+.s-mug { fill: var(--accent); }
+.s-mug-text { font: 700 13px var(--font-mono); fill: #fff3ec; }
+.s-handle { fill: none; stroke: var(--accent-ink); stroke-width: 5; }
+.steam { fill: none; stroke: var(--muted); stroke-width: 2.2; stroke-linecap: round; opacity: 0; animation: steam 2.8s ease-in-out infinite; animation-delay: var(--d); }
+
+.s-hoodie { fill: var(--hoodie); }
+.s-hood { fill: var(--hoodie-dark); }
+.s-arm { fill: none; stroke: var(--hoodie); stroke-width: 26; stroke-linecap: round; stroke-linejoin: round; }
+.s-arm-back { stroke: var(--hoodie-dark); }
+.s-skin { fill: var(--skin); }
+.s-skin-dark { fill: var(--skin-dark); }
+.s-hair { fill: var(--hair); }
+.s-phones-band { fill: none; stroke: #121214; stroke-width: 6; stroke-linecap: round; }
+.s-phones { fill: #121214; }
+.s-chair { fill: #2b2c31; }
+.s-chair-post { fill: #3a3b41; }
+.s-chair-base { fill: none; stroke: #3a3b41; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; }
+.s-wheel { fill: #1c1c20; }
+
+/* ── Scene: motion ──────────────────────────────────────────────────────── */
+.scene .layer,
+.scene .hand,
+.scene .r-part,
+.scene .r-eyes,
+.scene .wave-bar,
+.scene .steam,
+.scene .net-lit,
+.scene .progress {
+  transform-box: fill-box;
+}
+
+/* pointer parallax (desktop only; --px/--py set from JS) */
+.scene .layer {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.scene .l-back { transform: translate(calc(var(--px, 0) * -8px), calc(var(--py, 0) * -5px)); }
+.scene .l-desk { transform: translate(calc(var(--px, 0) * -3px), calc(var(--py, 0) * -2px)); }
+.scene .l-front { transform: translate(calc(var(--px, 0) * 10px), calc(var(--py, 0) * 5px)); }
+
+/* typing hands */
+.hand { animation: type 0.36s steps(1) infinite; }
+.hand-r { animation-delay: 0.18s; }
+
+/* code lines appear one by one in the "code" phase, stay through training */
+.code-line,
+.caret {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.scene:is([data-phase="code"], [data-phase="train"], [data-phase="ready"]) .code-line {
+  opacity: 1;
+  transform: none;
+}
+.scene[data-phase="code"] .code-line { transition-delay: calc(var(--i) * 0.5s + 0.2s); }
+.scene:is([data-phase="train"], [data-phase="ready"]) .caret { opacity: 1; transform: none; }
+
+/* progress bar + loss curve during training */
+.progress {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.scene:is([data-phase="train"], [data-phase="ready"]) .progress {
+  transform: scaleX(1);
+  transition: transform 6s linear;
+}
+.loss-curve {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.4s ease;
+}
+.scene:is([data-phase="train"], [data-phase="ready"]) .loss-curve {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 6s cubic-bezier(0.3, 0.6, 0.4, 1);
+}
+.output {
+  opacity: 0.35;
+  transition: opacity 0.5s ease;
+}
+.scene:is([data-phase="train"], [data-phase="ready"]) .output { opacity: 1; }
+
+/* status text */
+.s-status { transition: opacity 0.4s ease; }
+.s-status-train { opacity: 0; }
+.s-status-ready { opacity: 0; }
+.scene:is([data-phase="code"], [data-phase="train"]) .s-status-train { opacity: 1; }
+.scene[data-phase="ready"] .s-status-ready { opacity: 1; }
+
+/* neural net lights up layer by layer while training */
+.net { transition: opacity 0.5s ease; }
+.net-lit {
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.scene[data-phase="train"] .net-lit {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--c) * 1.3s + 0.4s);
+}
+.scene[data-phase="ready"] .net { opacity: 0; }
+.scene[data-phase="ready"] .net-lit { opacity: 1; transform: none; }
+
+/* robot wireframe draws while I type, parts assemble while it trains */
+.r-wire {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.scene[data-phase="code"] .r-wire { opacity: 1; transition-delay: 1.2s; }
+.scene[data-phase="train"] .r-wire { opacity: 1; }
+.r-part {
+  opacity: 0;
+  transform: translateY(14px) scale(0.92);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+.scene:is([data-phase="train"], [data-phase="ready"]) .r-part { opacity: 1; transform: none; }
+.scene[data-phase="train"] .r-part { transition-delay: calc(var(--i) * 1.05s + 0.6s); }
+
+.r-eyes,
+.r-smile {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.scene[data-phase="ready"] .r-eyes,
+.scene[data-phase="ready"] .r-smile { opacity: 1; }
+.scene[data-phase="ready"] .r-eyes { animation: blink-eyes 3.2s 0.6s infinite; transform-origin: center; }
+.scene[data-phase="ready"] .r-bulb { animation: pulse 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+
+/* hello bubble + voice waveform once ready */
+.bubble {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.scene[data-phase="ready"] .bubble {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.5s;
+}
+.wave-bar {
+  transform-origin: center;
+  transform: scaleY(0.15);
+  transition: transform 0.4s ease;
+}
+.scene[data-phase="ready"] .wave-bar {
+  animation: talk 0.55s ease-in-out infinite alternate;
+  animation-delay: var(--d);
+}
+
+/* quick fade before the loop restarts */
+.scene[data-phase="reset"] .code-line,
+.scene[data-phase="reset"] .r-part,
+.scene[data-phase="reset"] .net-lit {
+  transition-duration: 0.35s;
+  transition-delay: 0s;
+}
+
+/* pause everything while off-screen */
+.scene.is-paused * {
+  animation-play-state: paused !important;
+}
+
+@keyframes type {
+  50% { transform: translateY(-3px); }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+@keyframes steam {
+  0% { opacity: 0; transform: translateY(6px); }
+  40% { opacity: 0.55; }
+  100% { opacity: 0; transform: translateY(-14px); }
+}
+@keyframes glow {
+  50% { opacity: 0.22; }
+}
+@keyframes talk {
+  from { transform: scaleY(0.25); }
+  to { transform: scaleY(1); }
+}
+@keyframes blink-eyes {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+@keyframes pulse {
+  50% { transform: scale(1.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene .layer { transform: none !important; }
+  .hand, .steam, .caret, .s-cone { animation: none !important; }
+  .steam { opacity: 0.4; }
+  .scene[data-phase="ready"] .wave-bar { animation: none; transform: scaleY(0.7); }
+}
