@@ -1,5 +1,7 @@
 import { useState, type CSSProperties } from "react";
 import { awards } from "../data/content";
+import { useInView } from "../hooks/useInView";
+import { CelebrationCursor } from "./fx/CelebrationCursor";
 import { Dialog } from "./Dialog";
 import { Icon } from "./Icon";
 import { Trophy } from "./Trophy";
@@ -8,18 +10,41 @@ const shelves = [awards.slice(0, 5), awards.slice(5)];
 
 export function Awards() {
   const [index, setIndex] = useState<number | null>(null);
+  const [ref, inView] = useInView<HTMLElement>({ threshold: 0.2 });
   const award = index === null ? null : awards[index];
   const go = (d: number) => setIndex((i) => (i === null ? 0 : (i + d + awards.length) % awards.length));
 
   return (
-    <section id="awards" className="section section-tinted">
+    <section ref={ref} id="awards" className="section awards">
+      <CelebrationCursor active={inView && index === null} />
       <div className="wrap">
-        <div className="section-head" data-reveal>
-          <span className="eyebrow">04 · Awards</span>
-          <h2 className="section-title">The trophy shelf</h2>
-          <p className="section-lede">
-            Tap any trophy to see what it was for, and the certificate where there is one.
-          </p>
+        <div className="awards-head">
+          <div className="section-head" data-reveal>
+            <span className="eyebrow">
+              <b>[02]</b> Achievements
+            </span>
+            <h2 className="section-title">
+              The trophy <em>shelf</em>
+            </h2>
+            <p className="section-lede">
+              Move your cursor around: confetti's on the house. Click anywhere to pop it. Tap a trophy for the story and the
+              certificate.
+            </p>
+          </div>
+          <ul className="awards-quick" data-reveal style={{ "--rd": 2 } as CSSProperties}>
+            <li>
+              <strong>AIR 471</strong>
+              <span>of 32K teams · Amazon ML Challenge</span>
+            </li>
+            <li>
+              <strong>IEEE</strong>
+              <span>paper presented in Melbourne</span>
+            </li>
+            <li>
+              <strong>Top 3K</strong>
+              <span>of 134K+ · Amazon ML Summer School</span>
+            </li>
+          </ul>
         </div>
 
         <div className="cabinet" data-reveal>

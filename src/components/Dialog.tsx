@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
+import { lockScroll } from "../lib/smooth";
 import { Icon } from "./Icon";
 
 interface DialogProps {
@@ -21,11 +22,13 @@ export function Dialog({ open, onClose, title, subtitle, labelId, children, wide
     if (open && !el.open) {
       el.showModal();
       document.documentElement.style.overflow = "hidden";
+      lockScroll(true);
     } else if (!open && el.open) {
       el.close();
     }
     return () => {
       document.documentElement.style.overflow = "";
+      lockScroll(false);
     };
   }, [open]);
 
@@ -34,6 +37,7 @@ export function Dialog({ open, onClose, title, subtitle, labelId, children, wide
       ref={ref}
       className={`modal${wide ? " modal-wide" : ""}`}
       aria-labelledby={labelId}
+      data-lenis-prevent
       onClose={onClose}
       onCancel={(e) => {
         e.preventDefault();

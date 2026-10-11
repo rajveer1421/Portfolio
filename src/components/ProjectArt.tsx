@@ -5,17 +5,18 @@ export function ProjectArt({ id }: { id: string }) {
       return (
         <svg viewBox="0 0 320 200" className="art" aria-hidden="true">
           <g className="art-edges">
-            <path d="M70 52 L150 78 M70 148 L150 122 M150 78 L232 100 M150 122 L232 100 M70 52 L150 122 M70 148 L150 78" />
+            <path d="M70 100 L81 100 M127 100 L136 50 M127 100 L136 100 M127 100 L136 150 M184 50 L204 92 M184 100 L204 100 M184 150 L204 108" />
             <path d="M262 100 L296 54 M262 100 L300 100 M262 100 L296 146" />
           </g>
           {[
-            { x: 46, y: 52, t: "Policy" },
-            { x: 46, y: 148, t: "Reason" },
-            { x: 150, y: 78, t: "Vision" },
-            { x: 150, y: 122, t: "Risk" },
+            { x: 40, y: 100, t: "DINOv2" },
+            { x: 104, y: 100, t: "Route", w: 46 },
+            { x: 160, y: 50, t: "Front", w: 48 },
+            { x: 160, y: 100, t: "Back", w: 48 },
+            { x: 160, y: 150, t: "Side", w: 48 },
           ].map((n) => (
             <g key={n.t}>
-              <rect x={n.x - 34} y={n.y - 15} width="68" height="30" rx="15" className="art-node" />
+              <rect x={n.x - (n.w ?? 60) / 2} y={n.y - 15} width={n.w ?? 60} height="30" rx="15" className="art-node" />
               <text x={n.x} y={n.y + 4} className="art-label" textAnchor="middle">
                 {n.t}
               </text>

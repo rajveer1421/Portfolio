@@ -1,22 +1,34 @@
-import { useEffect, useState } from "react";
-import { profile } from "../data/content";
+import { useEffect, useRef, useState } from "react";
+import { lockScroll } from "../lib/smooth";
 import { Icon } from "./Icon";
 
 const links = [
   { id: "about", label: "About" },
-  { id: "work", label: "Projects" },
+  { id: "awards", label: "Trophies" },
+  { id: "work", label: "Work" },
   { id: "research", label: "Research" },
-  { id: "awards", label: "Awards" },
-  { id: "skills", label: "Skills" },
+  { id: "journey", label: "Journey" },
+  { id: "resumes", label: "Résumés" },
 ];
 
 export function Nav() {
   const [active, setActive] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
+  const progressRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      setHidden(y > 500 && y > lastY + 4);
+      if (y < lastY - 4 || y < 500) setHidden(false);
+      lastY = y;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -37,6 +49,7 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
+    lockScroll(open);
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -44,43 +57,44 @@ export function Nav() {
   }, [open]);
 
   return (
-    <header className={`nav${scrolled ? " is-scrolled" : ""}${open ? " is-open" : ""}`}>
+    <header className={`nav${scrolled ? " is-scrolled" : ""}${hidden && !open ? " is-hidden" : ""}${open ? " is-open" : ""}`}>
+      <span className="nav-progress" aria-hidden="true">
+        <span ref={progressRef} />
+      </span>
       <div className="wrap nav-inner">
         <a href="#top" className="brand" onClick={() => setOpen(false)} aria-label="Rajveer Gupta, back to top">
           <span className="brand-mark" aria-hidden="true">
             RG
           </span>
-          <span className="brand-name">Rajveer Gupta</span>
+          <span className="brand-name">
+            Rajveer<span>Gupta</span>
+          </span>
         </a>
 
-        <nav aria-label="Main">
+        <nav aria-label="Main" className="nav-main">
           <ul id="nav-links" className="nav-links">
-            {links.map((l) => (
-              <li key={l.id}>
+            {links.map((l, i) => (
+              <li key={l.id} style={{ ["--i" as string]: i }}>
                 <a
                   href={`#${l.id}`}
                   className={active === l.id ? "is-active" : undefined}
                   aria-current={active === l.id ? "true" : undefined}
                   onClick={() => setOpen(false)}
                 >
-                  {l.label}
+                  <span className="nav-num">0{i + 1}</span>
+                  <span className="nav-label" data-text={l.label}>
+                    {l.label}
+                  </span>
                 </a>
               </li>
             ))}
-            {profile.resumeUrl ? (
-              <li>
-                <a href={profile.resumeUrl} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
-                  Résumé
-                </a>
-              </li>
-            ) : null}
-            <li className="nav-cta-item">
-              <a href="#contact" className="btn btn-accent btn-sm" onClick={() => setOpen(false)}>
-                Contact me
-              </a>
-            </li>
           </ul>
         </nav>
+
+        <a href="#contact" className="btn btn-sm nav-cta" onClick={() => setOpen(false)}>
+          Let's talk
+          <Icon name="arrow-right" />
+        </a>
 
         <button
           type="button"
@@ -90,7 +104,8 @@ export function Nav() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((o) => !o)}
         >
-          <Icon name={open ? "close" : "menu"} />
+          <span />
+          <span />
         </button>
       </div>
     </header>

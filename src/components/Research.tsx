@@ -1,22 +1,34 @@
 import { useState, type CSSProperties } from "react";
 import { education, experience, publication } from "../data/content";
+import { ChromaCard } from "./fx/ChromaCard";
 import { Dialog } from "./Dialog";
 import { Icon } from "./Icon";
+
+const STEP_WHAT: Record<string, string> = {
+  Detect: "Flags a camera only when a fault persists, so one glitchy frame is not an alarm.",
+  Reconstruct: "Rebuilds the dead camera's view from the overlapping cameras around it.",
+  Fill: "Paints in the regions no other camera can see.",
+  Restore: "Cleans blur and noise in linear, not quadratic, time.",
+};
 
 export function Research() {
   const [certOpen, setCertOpen] = useState(false);
 
   return (
-    <section id="research" className="section">
+    <section id="research" className="section research">
       <div className="wrap">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">03 · Research & experience</span>
-          <h2 className="section-title">Research I've published</h2>
+          <span className="eyebrow eyebrow-lg">
+            <b>[05]</b> Publication & experience
+          </span>
+          <h2 className="section-title">
+            Cameras that <em>heal</em> themselves
+          </h2>
           <p className="section-lede">{publication.plain}</p>
         </div>
 
-        <article className="paper card" data-reveal>
-          <div className="paper-main">
+        <div className="paper-grid">
+          <article className="paper" data-reveal>
             <div className="paper-badges">
               <span className="tag tag-accent">IEEE · IRAI 2026</span>
               <span className="tag">{publication.status}</span>
@@ -31,15 +43,15 @@ export function Research() {
               ))}
             </p>
             <p className="paper-venue">
-              {publication.venue}
-              <br />
-              {publication.where} · Paper ID {publication.paperId}
+              {publication.venue} · {publication.where}
             </p>
 
             <ol className="pipeline">
               {publication.pipeline.map((s, i) => (
-                <li key={s.step} style={{ "--rd": i } as CSSProperties} data-reveal>
+                <li key={s.step} data-reveal style={{ "--rd": i } as CSSProperties}>
+                  <span className="pipeline-n">0{i + 1}</span>
                   <span className="pipeline-step">{s.step}</span>
+                  <span className="pipeline-what">{STEP_WHAT[s.step] ?? ""}</span>
                   <span className="pipeline-detail">{s.detail}</span>
                 </li>
               ))}
@@ -54,26 +66,21 @@ export function Research() {
               ))}
             </ul>
             <p className="muted small">{publication.resultNote}</p>
-          </div>
+          </article>
 
-          <button type="button" className="paper-cert" onClick={() => setCertOpen(true)}>
-            <img
-              src="/certificates/irai-2026-presentation-thumb.webp"
-              alt="IRAI 2026 certificate of presentation"
-              width="480"
-              height="337"
-              loading="lazy"
-              decoding="async"
-            />
-            <span className="paper-cert-label">
-              View certificate <Icon name="arrow-right" />
-            </span>
-          </button>
-        </article>
+          <div className="paper-side" data-reveal style={{ "--rd": 2 } as CSSProperties}>
+            <div className="paper-cert">
+              <ChromaCard image="/certificates/irai-2026-presentation-thumb.webp" imageAlt="IRAI 2026 certificate of presentation" tilt={12} />
+              <button type="button" className="paper-cert-label" onClick={() => setCertOpen(true)}>
+                View the certificate of presentation <Icon name="arrow-right" />
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div className="xp-grid">
           <div>
-            <h3 className="sub-title" data-reveal>
+            <h3 className="xp-title" data-reveal>
               Experience
             </h3>
             <ol className="timeline">
@@ -98,7 +105,7 @@ export function Research() {
           </div>
 
           <div>
-            <h3 className="sub-title" data-reveal>
+            <h3 className="xp-title" data-reveal>
               Education
             </h3>
             <ol className="timeline">

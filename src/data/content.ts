@@ -84,7 +84,7 @@ export const quickFacts: { label: string; value: string }[] = [
 // ── Headline proof (the strip under the hero) ───────────────────────────────
 
 export const proof: { value: string; label: string; href: string }[] = [
-  { value: "AIR 345", label: "of 11,000+ teams · Amazon ML Challenge 2026", href: "#awards" },
+  { value: "AIR 471", label: "of 32K teams · Amazon ML Challenge 2026", href: "#awards" },
   { value: "IEEE", label: "Paper presented at IRAI 2026, Melbourne", href: "#research" },
   { value: "Top 3,000", label: "of 1,34,000+ · Amazon ML Summer School 2026", href: "#research" },
   { value: "Best Innovation", label: "Tech Expo 2026 · Tinkerers' Lab, IIT Hyderabad", href: "#awards" },
@@ -96,20 +96,20 @@ export const roles: { title: string; what: string; proof: string; proofHref: str
   {
     title: "AI / ML Engineer",
     what: "Train, evaluate and ship models, from feature engineering to deployment.",
-    proof: "Resolv: AIR 345 at the Amazon ML Challenge",
-    proofHref: "#project-resolv",
+    proof: "Resolv: AIR 471 of 32K teams, Amazon ML Challenge",
+    proofHref: "#resolv",
   },
   {
     title: "AI Engineer (LLMs & agents)",
     what: "Multi-agent systems with LangGraph and LangChain, RAG, VLMs and evaluation.",
-    proof: "ReturnGuard: a 5-agent fraud pipeline",
-    proofHref: "#project-returnguard",
+    proof: "ReturnGuard: a multi-agent LangGraph pipeline",
+    proofHref: "#work",
   },
   {
     title: "Applied AI / Applied Scientist",
     what: "Turn a messy real-world problem into a metric, then move that metric.",
     proof: "Resolv: 0.94 → 0.986 leaderboard F0.5",
-    proofHref: "#project-resolv",
+    proofHref: "#resolv",
   },
   {
     title: "Research roles",
@@ -119,15 +119,15 @@ export const roles: { title: string; what: string; proof: string; proofHref: str
   },
   {
     title: "Application Engineer",
-    what: "Take a product from problem discovery and Figma to shipped full-stack code.",
-    proof: "Memora: memory care for Alzheimer's",
-    proofHref: "#project-memora",
+    what: "Turn a real problem into a shipped product, from user research and Figma to a working AI feature.",
+    proof: "Memora: co-founder and team lead",
+    proofHref: "#work",
   },
   {
     title: "SDE / Python Developer",
     what: "Flask, FastAPI, SQL, clean object-oriented design and system design.",
     proof: "Stock Simulator: C++ OOP engine",
-    proofHref: "#project-stock-simulator",
+    proofHref: "#work",
   },
 ];
 
@@ -171,15 +171,15 @@ export const projects: Project[] = [
     metrics: [
       { value: "0.93", label: "precision" },
       { value: "0.88", label: "F1 score" },
-      { value: "5", label: "cooperating agents" },
+      { value: "3", label: "views judged in parallel" },
     ],
-    stack: ["Python", "LangGraph", "LangChain", "DINOv2", "Vision-language models", "Flask", "SQL", "Docker"],
+    stack: ["Python", "LangGraph", "LangChain", "DINOv2", "Gemini 2.5 Flash", "Flask", "SQLite"],
     highlights: [
-      "Five agents share state in a LangGraph pipeline: policy check, return-reason check, fraud-risk scoring, visual analysis and a final decision step.",
-      "Photos taken at delivery (front, back and side) are the ground truth. Each view of the returned item is compared with DINOv2 embeddings first; only the unclear views go on to vision-language models, and an LLM judge combines the per-view verdicts.",
+      "A LangGraph graph with shared typed state and conditional routing. A reusable vision-language subgraph runs in parallel for the front, back and side photos (fan-out / fan-in), then an LLM judge combines the three verdicts.",
+      "Two tiers to save cost: DINOv2 patch-mean embeddings auto-clear near-identical items first, so the expensive vision-language model only sees the unclear returns. Backgrounds are removed and photos padded to a square before embedding.",
       "My first version used a single video or a mixed set of photos, and accuracy was too low. Re-designing it around fixed views is what got it to 0.93 precision, 0.83 recall and 0.88 F1 on a hand-labelled set of 36+ product pairs.",
-      "Tuned for precision so honest customers are not wrongly refused. Every case is routed to accept, send to a human, or reject.",
-      "Flask + SQL backend with REST APIs, risk scores that take the customer's history into account, a full audit trail, and an explainable report (evidence, reasoning, verdict) for every case.",
+      "Tuned for precision so honest customers are not wrongly refused: DINOv2 rated different products of the same material 85–92% similar, so I tightened the auto-accept threshold and added blur-aware weighting. Every case is routed to accept, human review or reject with a 0–100 risk score.",
+      "Flask REST API with an SQLite audit trail (parameterized queries): per-view scores, model reasoning and the final verdict are stored for every order.",
     ],
     links: [
       // Paste the live demo URL here when it is ready:
@@ -200,23 +200,23 @@ export const projects: Project[] = [
     plain:
       "A patient points their phone at someone and Memora tells them who it is, in a loved one's recorded voice. Families can draw safe zones and get an SOS alert if the patient wanders off.",
     year: "2025 – 2026",
-    role: "Co-founder & team lead",
+    role: "Co-founder & team lead · I built the ML layer",
     featured: true,
     categories: ["live", "vision", "swe"],
     recognition: "Microsoft Imagine Cup 2025 MVP round · Best Innovation Award, IIT Hyderabad",
     metrics: [
       { value: "98.5%", label: "face-match accuracy (LFW)" },
       { value: "0", label: "raw face images stored" },
-      { value: "4", label: "services in production" },
+      { value: "4", label: "services (team build)" },
     ],
-    stack: ["React 18", "Node.js / Express", "FastAPI", "DeepFace · ArcFace", "BERT", "Supabase · pgvector", "Azure"],
+    stack: ["DeepFace · ArcFace", "BERT", "Python", "Team: React 18, Node.js, FastAPI, Supabase"],
     highlights: [
       "It started with a real event: a friend's grandfather with Alzheimer's went missing for a whole day.",
-      "Face recognition with ArcFace embeddings (via DeepFace), 98.5% on the LFW benchmark. Camera frames become 512-number vectors, are matched by cosine similarity (threshold 0.68) on a pgvector index, and are thrown away. Raw images are never saved.",
+      "My part was the ML layer. Face recognition with ArcFace embeddings (via DeepFace), 98.5% on the LFW benchmark: camera frames become 512-number vectors, are matched by cosine similarity (threshold 0.68), and are thrown away. Raw images are never saved.",
       "A BERT model reads the patient's speech for signs of distress so the app can respond more gently.",
       "Families draw safe zones on a map. Leaving one triggers an automatic SOS with live location. The app also remembers where misplaced objects were last seen.",
-      "Separate patient and family dashboards. The patient screen needs almost no tapping; I tried several Figma designs before picking the simplest one.",
-      "React front end, Node.js/Express API with JWT auth, a FastAPI face-recognition service, and Postgres with row-level security. Deployed on Azure and Render.",
+      "Separate patient and family dashboards. The patient screen needs almost no tapping; the team tried several Figma designs before picking the simplest one.",
+      "A team project: my teammates built the React front end and the Node.js/Express API; the face-recognition service plugs into it. The live demo runs on Render.",
     ],
     links: [
       { kind: "live", label: "Live app", href: "https://memora-tqs5.onrender.com", note: "Free hosting: may take ~30 s to wake up" },
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     role: "Team lead · The Epoch Warriors (4 people)",
     featured: true,
     categories: ["nlp", "agents"],
-    recognition: "AIR 345 out of 11,000+ teams",
+    recognition: "AIR 471 of 32K teams",
     metrics: [
       { value: "0.986", label: "public leaderboard F0.5" },
       { value: "0.99158", label: "validation F0.5" },
@@ -274,15 +274,15 @@ export const projects: Project[] = [
     categories: ["swe"],
     metrics: [
       { value: "C++", label: "core engine" },
-      { value: "5", label: "independent modules" },
-      { value: "O(log n)", label: "leaderboard rank queries" },
+      { value: "7", label: "classes" },
+      { value: "O(1)", label: "holdings lookup" },
     ],
     stack: ["C++", "STL", "OOP", "Python", "Flask", "JSON"],
     highlights: [
-      "Trader, Company, Stock, SIP and Leaderboard are separate classes that use encapsulation, inheritance and polymorphism.",
-      "Order types sit behind abstract base classes, so a new strategy plugs in without changing the core engine.",
-      "Portfolio and leaderboard structures answer ranked queries on live profit and loss in O(log n).",
-      "State is saved to JSON between sessions, and a Flask layer keeps the C++ engine separate from the web interface.",
+      "Seven classes (Trader, Company, Stock, Transaction, SIP, Market, Leaderboard) with private state behind getters and setters, inheritance, and friend classes for controlled access.",
+      "Market is a non-instantiable static utility (deleted constructor and destructor).",
+      "Holdings live in an unordered_map for O(1) average lookup, with a timestamped transaction history; the leaderboard ranks traders by net worth and percentage profit or loss.",
+      "State is saved to JSON between sessions, and a Flask layer drives the compiled C++ binary over stdin/stdout pipes, keeping the engine independent of the web interface.",
     ],
     links: [{ kind: "code", label: "Code", href: "https://github.com/rajveer1421/Stock-Simulator-OOPs" }],
   },
@@ -320,6 +320,7 @@ export const projects: Project[] = [
     plain:
       "A heart rate of 130 is normal while eating and an emergency at rest. MediGuard trains AI agents to read that context instead of flooding nurses with false alarms.",
     year: "2026",
+    role: "Team of 3",
     categories: ["live", "agents"],
     recognition: "Built for the Meta PyTorch × Scaler OpenEnv Hackathon 2026",
     metrics: [
@@ -413,7 +414,7 @@ export const projects: Project[] = [
     year: "2026",
     categories: ["agents", "nlp"],
     metrics: [
-      { value: "1,000 / 200", label: "token chunks / overlap" },
+      { value: "1,000 / 200", label: "character chunks / overlap" },
       { value: "\"I don't know\"", label: "when the answer isn't there" },
     ],
     stack: ["LangChain", "LLaMA", "ChromaDB", "Hugging Face embeddings"],
@@ -579,16 +580,16 @@ export interface Award {
 export const awards: Award[] = [
   {
     id: "amazon-ml-challenge",
-    short: "AIR 345",
-    title: "Top 350 · AIR 345",
+    short: "AIR 471",
+    title: "AIR 471 of 32K teams",
     event: "Amazon ML Challenge 2026",
     detail:
-      "Ranked 345th of 11,000+ teams with an overall score of 0.985978. I led team The Epoch Warriors (with Hrutuparna Bedekar, Sutikshan Upman and Manas Tiwari); our solution is the Resolv project above.",
+      "Ranked 471st of 32K participating teams with an overall score of 0.985978. I led team The Epoch Warriors (with Hrutuparna Bedekar, Sutikshan Upman and Manas Tiwari); our solution is the Resolv project.",
     when: "2026",
     shape: "cup",
     tone: "gold",
-    image: "/certificates/amazon-ml-challenge-rank-345.webp",
-    thumb: "/certificates/amazon-ml-challenge-rank-345-thumb.webp",
+    image: "/certificates/amazon-ml-challenge-rank-471.webp",
+    thumb: "/certificates/amazon-ml-challenge-rank-471-thumb.webp",
   },
   {
     id: "irai",
@@ -722,4 +723,91 @@ export const certifications: { title: string; href: string }[] = [
   { title: "Gen AI Foundational Models for NLP & Language Understanding", href: "https://coursera.org/share/9a3c408c7866c0be6533e9932cffaf87" },
   { title: "Generative AI Language Modeling with Transformers", href: "https://coursera.org/share/6ccd9ef56f0ffbf754a1628337a3d215" },
   { title: "Fundamentals of AI Agents Using RAG & LangChain", href: "https://coursera.org/share/77f13252966c8897e0440a770f127e11" },
+];
+
+// ── Hero numbers (animated with a speed blur) ──────────────────────────────
+
+export const heroStats: { value: number; decimals?: number; prefix?: string; suffix?: string; label: string }[] = [
+  { value: 9.08, decimals: 2, label: "CGPA at IIIT Nagpur" },
+  { value: 471, prefix: "#", label: "of 32K teams · Amazon ML Challenge" },
+  { value: 11.7, decimals: 1, suffix: "M", label: "records matched by Resolv" },
+  { value: 98.5, decimals: 1, suffix: "%", label: "face-match accuracy · Memora" },
+];
+
+export const tickerWords = [
+  "Computer vision",
+  "NLP",
+  "Multi-agent LLMs",
+  "LangGraph",
+  "RAG",
+  "PyTorch",
+  "Vision-language models",
+  "Mamba / SSMs",
+  "3D Gaussian Splatting",
+  "FastAPI",
+  "C++",
+  "Ablations, not vibes",
+];
+
+// ── Résumés (three versions, one per kind of role) ─────────────────────────
+
+export interface Resume {
+  id: string;
+  title: string;
+  forRoles: string;
+  file: string;
+  downloadName: string;
+  pitch: string;
+  leads: string[];
+  accent: "orange" | "lime" | "violet";
+}
+
+export const resumes: Resume[] = [
+  {
+    id: "sde",
+    title: "Software Engineering",
+    forRoles: "SDE · backend · systems",
+    file: "/resumes/Rajveer_Gupta_SDE_Resume.pdf",
+    downloadName: "Rajveer_Gupta_SDE_Resume.pdf",
+    pitch: "Reliable, privacy-first systems: REST backends, C++ OOP and precision-tuned decision logic.",
+    leads: ["ReturnGuard (Flask + SQLite)", "C++ trading engine", "Fault-tolerant camera research"],
+    accent: "orange",
+  },
+  {
+    id: "applied-ai",
+    title: "Applied AI & Agentic",
+    forRoles: "AI engineer · LLM agents · applied ML",
+    file: "/resumes/Rajveer_Gupta_Applied_AI_Agentic_Resume.pdf",
+    downloadName: "Rajveer_Gupta_Applied_AI_Agentic_Resume.pdf",
+    pitch: "LLM agents that take actions: multi-agent graphs with human handoff, grounded RAG and FastAPI agents.",
+    leads: ["ReturnGuard (LangGraph)", "Company Policy RAG", "MediGuard LLM agent"],
+    accent: "lime",
+  },
+  {
+    id: "research",
+    title: "Research",
+    forRoles: "Student researcher · CV / NLP labs",
+    file: "/resumes/Rajveer_Gupta_Research_Resume.pdf",
+    downloadName: "Rajveer_Gupta_Research_Resume.pdf",
+    pitch: "Vision meets language: an IEEE paper, a distribution-shift fix at 11.7M records, models built from scratch.",
+    leads: ["IEEE IRAI 2026 paper", "Resolv entity resolution", "BERT / ViT from scratch"],
+    accent: "violet",
+  },
+];
+
+// ── The journey (progress over time, oldest first) ─────────────────────────
+
+export const journey: { when: string; title: string; detail: string; image?: string; tile?: string; tone?: "orange" | "lime" | "violet" }[] = [
+  { when: "2022", title: "Class X · 98%", detail: "City Montessori School, Lucknow.", tone: "violet" },
+  { when: "2024", title: "Class XII · 92%", detail: "St. Joseph's School, Kota. Then IIIT Nagpur, CSE.", tone: "lime" },
+  { when: "Mar 2025", title: "Top 5,000 of 25,000+", detail: "Build With India semi-finalist with an AI virtual-psychiatrist idea.", tone: "orange" },
+  { when: "2025", title: "SIH national semi-finalist", detail: "AyurSutra, an AI platform for Ayurveda clinics, from 1,00,000+ participants.", tone: "violet" },
+  { when: "2025", title: "Microsoft Imagine Cup", detail: "Memora reaches Microsoft's international MVP round.", tile: "MVP Round Qualifier", tone: "lime" },
+  { when: "Oct 2025", title: "2nd place · Analytica", detail: "Depthwise CNN + Grad-CAM for kidney scans.", image: "/certificates/analytica-2nd-place-thumb.webp", tone: "orange" },
+  { when: "Mar 2026", title: "Best Innovation · IIT Hyderabad", detail: "Tinkerers' Lab Tech Expo, for Memora.", image: "/certificates/tinkerers-lab-best-innovation-thumb.webp", tone: "violet" },
+  { when: "2026", title: "IEEE IES GenAI finalist", detail: "The idea that became our IEEE paper.", tone: "lime" },
+  { when: "Summer 2026", title: "Amazon ML Summer School", detail: "Top 3,000 of 134,000+ applicants.", image: "/certificates/amazon-ml-summer-school-2026-thumb.webp", tone: "orange" },
+  { when: "2026", title: "AIR 471 of 32K teams", detail: "Amazon ML Challenge, leading The Epoch Warriors with Resolv.", image: "/certificates/amazon-ml-challenge-rank-471-thumb.webp", tone: "violet" },
+  { when: "Sept 2026", title: "Paper presented in Melbourne", detail: "IEEE IRAI 2026: fault-tolerant multi-camera vision.", image: "/certificates/irai-2026-presentation-thumb.webp", tone: "lime" },
+  { when: "Now", title: "Looking for 2027 internships", detail: "AI/ML, applied AI, research or SDE. Let's talk.", image: "/photos/smile-sm.webp", tone: "orange" },
 ];
