@@ -45,6 +45,12 @@ export function Research() {
             <p className="paper-venue">
               {publication.venue} · {publication.where}
             </p>
+            <div className="paper-actions">
+              <a href={publication.paperUrl} target="_blank" rel="noreferrer" className="btn btn-accent">
+                <Icon name="file" />
+                Read the paper
+              </a>
+            </div>
 
             <ol className="pipeline">
               {publication.pipeline.map((s, i) => (

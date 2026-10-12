@@ -507,6 +507,7 @@ export const publication = {
   where: "2–5 September 2026 · Melbourne, Australia",
   status: "Accepted and presented · to appear in IEEE Xplore",
   paperId: "IRAI26-000373",
+  paperUrl: "https://drive.google.com/file/d/1v73aQcAVSNhDU1nm2sVOP3YkYbNooj_B/view?usp=sharing",
   authors: ["Akshay Gupta", "Anshumaan Singh", "Rajveer Gupta", "Pranshu Jain", "Tushar Patidar"],
   plain:
     "When one camera in a factory's CCTV network fails, its view is simply lost. Our framework, HocVid, notices the failure and rebuilds the missing view from the overlapping cameras around it.",
@@ -603,6 +604,7 @@ export const awards: Award[] = [
     tone: "blue",
     image: "/certificates/irai-2026-presentation.webp",
     thumb: "/certificates/irai-2026-presentation-thumb.webp",
+    link: { label: "Read the paper (PDF)", href: publication.paperUrl },
   },
   {
     id: "tinkerers",
