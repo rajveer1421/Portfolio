@@ -45,7 +45,7 @@ export function ProjectArt({ id }: { id: string }) {
           <path d="M152 94 l8 6 l-8 6" className="art-arrow" />
           <text x="170" y="74" className="art-mono">[0.12, -0.48,</text>
           <text x="170" y="92" className="art-mono">  0.33, 0.07,</text>
-          <text x="170" y="110" className="art-mono">  … 512 dims]</text>
+          <text x="170" y="110" className="art-mono">  … 128 dims]</text>
           <rect x="168" y="128" width="132" height="44" rx="12" className="art-node art-node-hot" />
           <text x="182" y="147" className="art-label art-label-hot">That's Riya</text>
           <text x="182" y="163" className="art-small">your granddaughter</text>
